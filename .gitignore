@@ -1,0 +1,8 @@
+# ignore all files in any directory vs
+**/.vs/
+
+# ignore all files in any directory obj
+**/obj/
+
+# ignore all files in any directory bin
+**/bin/
