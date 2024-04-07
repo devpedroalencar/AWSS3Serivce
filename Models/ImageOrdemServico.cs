@@ -13,10 +13,10 @@ namespace AWSS3Service.Models
         {
         }
 
-        public int id_imagem_ordem_servico { get; set; }
-        public int id_ordem_servico { get; set; }
-        public string status { get; set; }
-        public string progress { get; set; }
-        public string tipo { get; set; }
+        public int Id { get; set; }
+        public int IdOrdemServico { get; set; }
+        public string Status { get; set; }
+        public string Progress { get; set; }
+        public string Tyoe { get; set; }
     }
 }

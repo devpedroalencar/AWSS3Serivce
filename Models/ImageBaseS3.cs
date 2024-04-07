@@ -9,10 +9,10 @@ namespace AWSS3Service.Models
 {
     public abstract class ImageBaseS3
     {
-        public string id_imagem { get; internal set; }
-        public string nome_imagem { get; internal set; }
-        public double tamanho { get; internal set; }
-        public string caminho_imagem { get; internal set; }
+        public string IdImage { get; internal set; }
+        public string NameImage { get; internal set; }
+        public double Size { get; internal set; }
+        public string Patch { get; internal set; }
 
         public ImageBaseS3(S3Object obj)
         {
@@ -24,12 +24,12 @@ namespace AWSS3Service.Models
             }
 
             //id_imagem = explodedString[index].Split(':')[0];
-            id_imagem = explodedString[index];
+            IdImage = explodedString[index];
             //nome_imagem = explodedString[index].Split(':')[1];
-            nome_imagem = explodedString[index];
+            NameImage = explodedString[index];
 
-            tamanho = obj.Size;
-            caminho_imagem = obj.Key;
+            Size = obj.Size;
+            Patch = obj.Key;
         }
     }
 }

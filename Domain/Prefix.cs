@@ -8,54 +8,54 @@ namespace AWSS3Service.Domain
 {
     public class Prefix
     {
-        private readonly Parameters _parametros;
-        private string _raiz { get; set; }
+        private readonly Parameters _parameters;
+        private string _root { get; set; }
         private PrefixHelper _helper;
 
-        public Prefix(Parameters parametros)
+        public Prefix(Parameters parameters)
         {
-            _parametros = parametros;
+            _parameters = parameters;
             _helper = new PrefixHelper();
 
-            if (string.IsNullOrEmpty(_parametros.prefixo)) // Em caso de exlcusão ou visualização prefixo vem do cliente (Sisum).
+            if (string.IsNullOrEmpty(_parameters.Prefix))
             {
-                _raiz = _helper.GetPrefixoEnum(_parametros.ePrefixoTipo);
+                _root = _helper.GetPrefixoEnum(_parameters.eTypePrefix);
 
-                if (_parametros.ePrefixoTipo != EPrefix.ImagemUsuario)
-                    _raiz = String.Concat(_raiz, _parametros.IdEmpresa + "/");
+                if (_parameters.eTypePrefix != EPrefix.UserImage)
+                    _root = String.Concat(_root, _parameters.IdCompany + "/");
 
             }
         }
 
-        public string getPrefixo()
+        public string getPrefix()
         {
-            if (!string.IsNullOrEmpty(_parametros.prefixo)) // Em caso de exlcusão ou visualização prefixo vem do cliente (Sisum).
-                return _parametros.prefixo;
+            if (!string.IsNullOrEmpty(_parameters.Prefix)) 
+                return _parameters.Prefix;
 
-            string retorno = _raiz;
-            if (_parametros.ePrefixoTipoFinal.HasValue) //Monta subpastas
+            string retorno = _root;
+            if (_parameters.eTypePrefixEnd.HasValue) //Build subfolders
             {
-                if (_parametros.ePrefixoTipoFinal == EPrefix.ResponsavelLocal ||
-                    _parametros.ePrefixoTipoFinal == EPrefix.ResponsavelTecnico ||
-                    _parametros.ePrefixoTipoFinal == EPrefix.imagensOS)
+                if (_parameters.eTypePrefixEnd == EPrefix.LocalResponsible ||
+                    _parameters.eTypePrefixEnd == EPrefix.TechnicianResponsible ||
+                    _parameters.eTypePrefixEnd == EPrefix.ImagesOS)
                 {
 
-                    retorno = String.Concat(retorno, _parametros.idItem + "/");
-                    return retorno = String.Concat(retorno, _helper.GetPrefixoEnum(_parametros.ePrefixoTipoFinal.Value));
+                    retorno = String.Concat(retorno, _parameters.idItem + "/");
+                    return retorno = String.Concat(retorno, _helper.GetPrefixoEnum(_parameters.eTypePrefixEnd.Value));
                 }
 
-                retorno = String.Concat(retorno, _helper.GetPrefixoEnum(_parametros.ePrefixoTipoFinal.Value));
+                retorno = String.Concat(retorno, _helper.GetPrefixoEnum(_parameters.eTypePrefixEnd.Value));
 
-                if (_parametros.ePrefixoTipoFinal != EPrefix.Logo &&
-                    _parametros.ePrefixoTipoFinal != EPrefix.AssinaturaContratada
+                if (_parameters.eTypePrefixEnd != EPrefix.Logo &&
+                    _parameters.eTypePrefixEnd != EPrefix.ContractedSignature
                     )
                 {
-                    retorno = String.Concat(retorno, _parametros.idItem + "/");
+                    retorno = String.Concat(retorno, _parameters.idItem + "/");
                 }
             }
             else
             {
-                retorno = String.Concat(_raiz, _parametros.idItem + "/");
+                retorno = String.Concat(_root, _parameters.idItem + "/");
             }
 
             return retorno;

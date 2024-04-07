@@ -10,40 +10,40 @@ namespace AWSS3Service.Enums
     public enum EPrefix
     {
         //PASTAS RAIZ
-        [Prefix("Materiais/")]
-        Estoque = 1,
-        [Prefix("Arquivos/")]
-        OrdemSevico = 2,
-        [Prefix("Clientes/")]
-        Clientes = 3,
-        [Prefix("Contratos/")]
-        Contratos = 4,
-        [Prefix("ImagemUsuario/")]
-        ImagemUsuario = 5,
-        [Prefix("Orcamentos/")]
-        Orcamentos = 6,
+        [Prefix("Products/")]
+        Stock = 1,
+        [Prefix("Files/")]
+        ServiceOrder = 2,
+        [Prefix("Clients/")]
+        Clients = 3,
+        [Prefix("Contacts/")]
+        Contacts = 4,
+        [Prefix("UserImage/")]
+        UserImage = 5,
+        [Prefix("Budget/")]
+        Budget = 6,
         //Daqui pra baixo são subpastas conforme estrutura do s3
-        [Prefix("_AssinaturaContratada/")]
-        AssinaturaContratada = 7,
+        [Prefix("_ContractedSignature/")]
+        ContractedSignature = 7,
         [Prefix("_Logo/")]
         Logo = 8,
-        [Prefix("ResponsavelTecnico/")]
-        ResponsavelTecnico = 9,
-        [Prefix("ResponsavelLocal/")]
-        ResponsavelLocal = 10,
-        [Prefix("Imagens/")]
-        imagensOS = 11,
-        [Prefix("_Funcionarios/")]
-        Funcionarios = 12,
-        [Prefix("Localizacao/")]
-        Localizacao = 13,
-        [Prefix("Equipamento/")]
-        Equipamento = 14,
-        [Prefix("Componente/")]
-        Componente = 15,
-        [Prefix("Peca/")]
-        Peca = 16,
-        [Prefix("ArquivosPlano/")]
-        Planos = 17
+        [Prefix("TechnicianResponsible/")]
+        TechnicianResponsible = 9,
+        [Prefix("LocalResponsible/")]
+        LocalResponsible = 10,
+        [Prefix("Images/")]
+        ImagesOS = 11,
+        [Prefix("_Employees/")]
+        Employees = 12,
+        [Prefix("Location/")]
+        Location = 13,
+        [Prefix("Equipment/")]
+        Equipment = 14,
+        [Prefix("Component/")]
+        Component = 15,
+        [Prefix("Part/")]
+        Part = 16,
+        [Prefix("PlanFiles/")]
+        PlanFiles = 17
     }
 }
