@@ -1,18 +1,29 @@
 ﻿using Amazon.S3.Model;
 using Amazon.S3;
 using AWSS3Service.Domain;
+using Amazon.Runtime.CredentialManagement;
+using Amazon.Runtime;
 
 namespace AWSS3Service.Repositories
 {
     internal class s3Repository
     {
-        private readonly IAmazonS3 S3Client;
+        private readonly IAmazonS3? S3Client;
         private readonly string _bucketName = "bucket";
         private readonly string _prefixo;
 
         public s3Repository(Prefix prefix)
         {
+            var chain = new CredentialProfileStoreChain();
+            AWSCredentials awsCredentials;
+            if (chain.TryGetAWSCredentials("default", out awsCredentials))
+            {
+                S3Client = new AmazonS3Client(awsCredentials);
+            }
             _prefixo = prefix.getPrefix();
+
+            //var credentials = new Amazon.Runtime.BasicAWSCredentials("", "");
+            //S3Client = new AmazonS3Client(credentials, Amazon.RegionEndpoint.USEast1);
         }
 
         public async Task<List<S3Object>> getS3ObjectList()
