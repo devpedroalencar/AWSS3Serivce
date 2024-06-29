@@ -5,25 +5,25 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AWSS3Service.Models
+namespace AWSS3Service.Models.Requests
 {
-    public class Parameters
+    public class RequestService
     {
         public int? IdCompany { get; set; }
         public int? idItem { get; set; }
         public EPrefix eTypePrefix { get; set; }//PASTAS RAIZ
-                                                      //(1 - Materiais/
-                                                      // 2 - Arquivos/
-                                                      // 3 - Clientes
-                                                      // 4 - Contratos
-                                                      // 5 - ImagemUsuario
-                                                      // 6 - Orcamentos
+                                                //(1 - Materiais/
+                                                // 2 - Arquivos/
+                                                // 3 - Clientes
+                                                // 4 - Contratos
+                                                // 5 - ImagemUsuario
+                                                // 6 - Orcamentos
         public EPrefix? eTypePrefixEnd { get; set; }//SUBPASTAS
-                                                            // 7 - _AssinaturaContratada/
-                                                            // 8 - _Logo
-                                                            // 9 - ResponsavelTecnico
-                                                            // 10 - ResponsavelLocal
-                                                            // 11 - Imagens)
+                                                    // 7 - _AssinaturaContratada/
+                                                    // 8 - _Logo
+                                                    // 9 - ResponsavelTecnico
+                                                    // 10 - ResponsavelLocal
+                                                    // 11 - Imagens)
         public EInvoke eTypeCall { get => (EInvoke)eTypeCallInt; }
         public int eTypeCallInt { get; set; }
 
