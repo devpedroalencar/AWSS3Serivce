@@ -1,8 +1,8 @@
 ﻿using Amazon.S3.Model;
 using Amazon.S3;
-using AWSS3Service.Domain;
 using Amazon.Runtime.CredentialManagement;
 using Amazon.Runtime;
+using AWSS3Service.Services;
 
 namespace AWSS3Service.Repositories
 {
@@ -12,7 +12,7 @@ namespace AWSS3Service.Repositories
         private readonly string _bucketName = "bucket";
         private readonly string _prefixo;
 
-        public s3Repository(Prefix prefix)
+        public s3Repository(PrefixService prefix)
         {
             var chain = new CredentialProfileStoreChain();
             AWSCredentials awsCredentials;
@@ -68,14 +68,14 @@ namespace AWSS3Service.Repositories
             }
         }
 
-        public async void UploadFileBucket(Stream fileStream, string key, string contentType)
+        public async void UploadFileBucket(Stream fileStream, string imageDescription, string contentType)
         {
             try
             {
                 PutObjectRequest putRequest = new PutObjectRequest
                 {
                     BucketName = _bucketName,
-                    Key = key,
+                    Key = _prefixo + imageDescription,
                     InputStream = fileStream
                 };
 

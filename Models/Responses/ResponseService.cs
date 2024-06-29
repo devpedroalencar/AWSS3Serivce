@@ -1,6 +1,4 @@
-﻿
-
-namespace AWSS3Service.Models
+﻿namespace AWSS3Service.Models.Responses
 {
     public class ResponseService
     {

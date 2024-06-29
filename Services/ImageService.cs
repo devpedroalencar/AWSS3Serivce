@@ -1,27 +1,31 @@
-﻿using AWSS3Service.Domain;
-using AWSS3Service.Helpers;
-using AWSS3Service.Models;
+﻿using AWSS3Service.Helpers;
+using AWSS3Service.Models.Requests;
+using AWSS3Service.Models.Responses;
+using AWSS3Service.Repositories;
 using SixLabors.ImageSharp;
 
-namespace AWSS3Service.Repositories
-{
-    internal class ImageRepository : s3Repository
-    {
-        private readonly string _prefix;
 
-        public ImageRepository(Prefix prefix) : base(prefix)
+namespace AWSS3Service.Services
+{
+    public class ImageService
+    {
+        private readonly s3Repository _s3Repository;
+
+        public ImageService(RequestService request)
         {
-            _prefix = prefix.getPrefix();
+             _s3Repository = new s3Repository(
+                    new PrefixService(request)
+                    );
         }
 
-        public async Task<ResponseService> saveFile(byte[] imagem, string descricaoImagem, string contentType)
+        public async Task<ResponseService> saveFile(byte[] bImage, string imageDescription, string contentType)
         {
             try
             {
                 var helper = new ImageHelper();
-                Stream fileStream = new MemoryStream(imagem);
+                Stream fileStream = new MemoryStream(bImage);
 
-                descricaoImagem = helper.RemoveAccentuation(descricaoImagem).ToString().ToUpper();
+                imageDescription = helper.RemoveAccentuation(imageDescription).ToString().ToUpper();
 
                 if (!string.IsNullOrEmpty(contentType) && (contentType == "image/jpeg" || contentType == "image/png"))
                 {
@@ -38,10 +42,10 @@ namespace AWSS3Service.Repositories
                 }
                 else if (string.IsNullOrEmpty(contentType))
                 {
-                    contentType = helper.GetMimeType(fileStream, descricaoImagem);
+                    contentType = helper.GetMimeType(fileStream, imageDescription);
                 }
-                string key = _prefix + descricaoImagem;
-                UploadFileBucket(fileStream, key, contentType);
+                //string key = _prefix + imageDescription;
+                _s3Repository.UploadFileBucket(fileStream, imageDescription, contentType);
                 return new ResponseService("Arquivo/Imagem salvo com sucesso.", true);
             }
             catch (Exception ex)
