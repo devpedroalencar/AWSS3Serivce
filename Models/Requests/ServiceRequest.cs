@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace AWSS3Service.Models.Requests
 {
-    public class RequestService
+    public class ServiceRequest
     {
         public int? IdCompany { get; set; }
         public int? idItem { get; set; }
@@ -29,7 +29,7 @@ namespace AWSS3Service.Models.Requests
 
         public string sImg { get; set; }
 
-        public byte[] imagem
+        public byte[] image
         {
             get
             {

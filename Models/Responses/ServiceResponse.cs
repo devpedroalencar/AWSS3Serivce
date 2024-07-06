@@ -1,8 +1,8 @@
 ﻿namespace AWSS3Service.Models.Responses
 {
-    public class ResponseService
+    public class ServiceResponse
     {
-        public ResponseService(string Message, bool Success)
+        public ServiceResponse(string Message, bool Success)
         {
             this.Message = Message;
             this.Success = Success;

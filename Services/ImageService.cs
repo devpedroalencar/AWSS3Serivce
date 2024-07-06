@@ -11,23 +11,24 @@ namespace AWSS3Service.Services
     {
         private readonly s3Repository _s3Repository;
 
-        public ImageService(RequestService request)
+        public ImageService(ServiceRequest request)
         {
              _s3Repository = new s3Repository(
                     new PrefixService(request)
                     );
         }
 
-        public async Task<ResponseService> saveFile(byte[] bImage, string imageDescription, string contentType)
+        //public async Task<ServiceResponse> saveFile(byte[] bImage, string imageDescription, string contentType)
+        public async Task<ServiceResponse> saveFile(ServiceRequest request)
         {
             try
             {
                 var helper = new ImageHelper();
-                Stream fileStream = new MemoryStream(bImage);
+                Stream fileStream = new MemoryStream(request.image);
 
-                imageDescription = helper.RemoveAccentuation(imageDescription).ToString().ToUpper();
+                var imageDescription = helper.RemoveAccentuation(request.DescriptionImage).ToString().ToUpper();
 
-                if (!string.IsNullOrEmpty(contentType) && (contentType == "image/jpeg" || contentType == "image/png"))
+                if (!string.IsNullOrEmpty(request.ContentType) && (request.ContentType == "image/jpeg" || request.ContentType == "image/png"))
                 {
                     var tamanho = new Size(500, 500);
                     using (var image = SixLabors.ImageSharp.Image.Load(fileStream))
@@ -40,17 +41,17 @@ namespace AWSS3Service.Services
                         }
                     }
                 }
-                else if (string.IsNullOrEmpty(contentType))
+                else if (string.IsNullOrEmpty(request.ContentType))
                 {
-                    contentType = helper.GetMimeType(fileStream, imageDescription);
+                    request.ContentType = helper.GetMimeType(fileStream, imageDescription);
                 }
                 //string key = _prefix + imageDescription;
-                _s3Repository.UploadFileBucket(fileStream, imageDescription, contentType);
-                return new ResponseService("Arquivo/Imagem salvo com sucesso.", true);
+                _s3Repository.UploadFileBucket(fileStream, imageDescription, request.ContentType);
+                return new ServiceResponse("Arquivo/Imagem salvo com sucesso.", true);
             }
             catch (Exception ex)
             {
-                return new ResponseService(ex.Message, false);
+                return new ServiceResponse(ex.Message, false);
                 throw;
             }
         }
