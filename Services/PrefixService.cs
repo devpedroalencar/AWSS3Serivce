@@ -6,11 +6,11 @@ namespace AWSS3Service.Services
 {
     public class PrefixService
     {
-        private readonly RequestService _RequestService;
+        private readonly ServiceRequest _RequestService;
         private string _root { get; set; } = default!;
         private PrefixHelper _helper;
 
-        public PrefixService(RequestService RequestService)
+        public PrefixService(ServiceRequest RequestService)
         {
             _RequestService = RequestService;
             _helper = new PrefixHelper();
